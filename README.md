@@ -787,7 +787,7 @@ pipeline {
 
 ##### username: bugs | password: bunny (user role)
 ##### username: daffy | password: duck (manager role)
-
+##### develop branch
 ######## You can also sign-up as a new user and customize your role to play with the application! 😊
 
 
