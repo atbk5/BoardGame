@@ -1,3 +1,4 @@
+@Library('jenkins-class-lib@mvn-build') _
 pipeline {
     agent any
     
@@ -8,22 +9,14 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/atbk5/BoardGame.git'
+                git branch: 'mvn-java-build', url: 'https://github.com/atbk5/BoardGame.git'
             }
         }
-        stage('Compile') {
+        stage('Maven Build') {
             steps {
-                sh "mvn compile"
-            }
-        }
-        stage('Test') {
-            steps {
-                sh "mvn test"
-            }
-        }
-        stage('Build') {
-            steps {
-                sh "mvn package"
+                script {
+                    javaBuild()
+                }
             }
         }
     }
