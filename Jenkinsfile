@@ -1,29 +1,30 @@
+// 1. Declare the Shared Library
+// Note: Replace 'demo-library@main' with your actual Library Name and Branch/Tag
+@Library('hello-library@hello-lib') _ 
+
 pipeline {
     agent any
-    
-    tools {
-        jdk 'jdk17'
-        maven 'mvn3'
-    }
+
     stages {
-        stage('Git Checkout') {
+        stage('Initialization') {
             steps {
-                git branch: 'main', url: 'https://github.com/atbk5/BoardGame.git'
+                echo "Pipeline execution started in the application repository."
             }
         }
-        stage('Compile') {
+        
+        stage('Shared Library Execution') {
             steps {
-                sh "mvn compile"
+                script {
+                    // 2. Call the global function defined in vars/greetUser.groovy
+                    // This single call triggers the entire library flow.
+                    greetUser('Student Demo User')
+                }
             }
         }
-        stage('Test') {
+        
+        stage('Completion') {
             steps {
-                sh "mvn test"
-            }
-        }
-        stage('Build') {
-            steps {
-                sh "mvn package"
+                echo "Shared library functions executed successfully!"
             }
         }
     }
