@@ -1,6 +1,7 @@
 // 1. Declare the Shared Library
 // Note: Replace 'demo-library@main' with your actual Library Name and Branch/Tag
 @Library('hello-library@hello-lib') _ 
+import com.demo.UtilityClass
 
 pipeline {
     agent any
@@ -15,9 +16,10 @@ pipeline {
         stage('Shared Library Execution') {
             steps {
                 script {
-                    // 2. Call the global function defined in vars/greetUser.groovy
-                    // This single call triggers the entire library flow.
                     greetUser('Student Demo User')
+
+                    def u = new UtilityClass(this)
+                    u.runSampleMethod('Student Demo User 2')
                 }
             }
         }
