@@ -1,6 +1,12 @@
-@Library('ci-library-demo@main') _ 
+@Library('ci-library-demo@lib-with-src') _ 
 pipeline {
     agent any
+
+    tools {
+        jdk 'jdk17'
+        maven 'mvn3'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,7 +17,7 @@ pipeline {
         stage('Standardized Build') {
             steps {
                 script {
-                    javaBuild() 
+                    javaBuild('mvn3') 
                 }
             }
         }
