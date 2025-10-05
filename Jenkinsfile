@@ -1,29 +1,24 @@
+@Library('ci-library-demo@main') _ 
 pipeline {
     agent any
-    
+
     tools {
         jdk 'jdk17'
         maven 'mvn3'
     }
+
     stages {
-        stage('Git Checkout') {
+        stage('Checkout') {
             steps {
+
                 git branch: 'main', url: 'https://github.com/atbk5/BoardGame.git'
             }
         }
-        stage('Compile') {
+        stage('Standardized Build') {
             steps {
-                sh "mvn compile"
-            }
-        }
-        stage('Test') {
-            steps {
-                sh "mvn test"
-            }
-        }
-        stage('Build') {
-            steps {
-                sh "mvn package"
+                script {
+                    javaBuild('mvn3') 
+                }
             }
         }
     }
